@@ -1,0 +1,42 @@
+Syntax
+
+FOR loop_counter IN [REVERSE] lower limit.. upper_limit LOOP
+  Statement 1;
+  Statement 2;
+  …
+  Statement 3;
+END LOOP;
+
+Example 1: FOR loop
+
+SET SERVEROUTPUT ON;
+BEGIN
+  FOR v_counter IN 1..10 LOOP
+    DBMS_OUTPUT.PUT_LINE(v_counter);
+  END LOOP;
+END;
+
+Example 2: FOR Loop with IN REVERSE keyword.
+
+Now suppose you want to print the counting, same as we did in the previous example but this time in reverse order. To do so you don’t have to change the loop definition or even you don’t have to add any extra line of codes, PL/SQL block will be same as of the previous example. You just have to add one keyword REVERSE immediately after IN keyword in FOR LOOP definition. Rest of the code will remain the same as that of the previous example.
+
+BEGIN
+  FOR v_counter IN REVERSE 1..10 LOOP
+    DBMS_OUTPUT.PUT_LINE(v_counter);
+  END LOOP;
+END;
+/
+
+Example 3: Multiplication Table using Numeric FOR loop
+
+DECLARE
+  v_result  NUMBER;
+BEGIN
+  FOR v_counter IN  1..10 LOOP
+    v_result:= 19*v_counter;
+    DBMS_OUTPUT.PUT_LINE(v_result);
+  END LOOP;
+END;
+/
+
+In this example we need one extra variable to store the result of the multiplication thus we declared a variable v_result with NUMBER data type. In the execution section we have our “FOR loop” and this time inside the loop we have only two statements. First is an arithmetic expression which will perform the multiplication of our table and will store the result in v_result variable. Second is the output statement which will display you the result in a formatted manner.

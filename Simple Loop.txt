@@ -1,0 +1,55 @@
+Syntax
+
+LOOP
+Statement 1;
+Statement 2;
+…
+Statement 3;
+END LOOP;
+
+Example
+
+DECLARE
+  v_counter   NUMBER :=0;
+  v_result  NUMBER;
+BEGIN
+  LOOP
+  v_counter := v_counter+1;
+  v_result := 19*v_counter;
+  DBMS_OUTPUT.PUT_LINE(’19’||’ x ‘||v_counter||’ = ‘|| v_result);
+  END LOOP;
+END;
+
+Here in this example as you can see we do not have any exit statement to terminate the loop. This means that if we execute this program then the execution will keep on printing till we halt it manually.
+
+
+Example 2 Terminate Loop with EXIT
+
+DECLARE
+  v_counter   NUMBER :=0;
+  v_result  NUMBER;
+BEGIN
+  LOOP
+  v_counter := v_counter+1;
+  v_result := 19*v_counter;
+  DBMS_OUTPUT.PUT_LINE(’19’||’ x ‘||v_counter||’ = ‘|| v_result);
+IF v_counter >=10 THEN
+  EXIT;
+END IF;
+  END LOOP;
+END;
+
+Example 3 Terminate the Loop with EXIT WHEN Clause
+Second way of terminating the loop is by using EXIT WHEN clause. Using this clause you can replace this whole IF THEN block with a simple single statement.
+
+DECLARE
+  v_counter   NUMBER :=0;
+  v_result  NUMBER;
+BEGIN
+  LOOP
+  v_counter := v_counter+1;
+  v_result := 19*v_counter;
+  DBMS_OUTPUT.PUT_LINE(’19’||’ x ‘||v_counter||’ = ‘|| v_result);
+EXIT WHEN i_counter>=10;
+  END LOOP;
+END;

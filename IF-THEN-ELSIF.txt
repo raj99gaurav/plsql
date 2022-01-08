@@ -1,0 +1,26 @@
+Syntax
+IF CONDITION 1 THEN
+STATEMENT 1;
+ELSIF CONDITION 2 THEN
+STATEMENT 2;
+ELSIF CONDITION 3 THEN
+STATEMENT 3;
+…
+ELSE
+STATEMENT N; END IF; 
+
+Example
+
+DECLARE
+ v_Place VARCHAR2(30) := ‘&Enter Place’;
+BEGIN
+ IF v_Place = ‘Metropolis’ THEN
+ DBMS_OUTPUT.PUT_LINE(‘This City Is Protected By Superman’);
+ELSIF v_Place = ‘Gotham’ THEN
+ DBMS_OUTPUT.PUT_LINE(‘This City is Protected By Batman’);
+ELSIF v_Place = ‘Amazon’ THEN
+DBMS_OUTPUT.PUT_LINE(‘This City is protected by Wonder Woman’);
+ELSE
+DBMS_OUTPUT.PUT_LINE(‘Please Call Avengers’);
+END IF;
+DBMS_OUTPUT.PUT_LINE(‘Thanks For Contacting us’);END;

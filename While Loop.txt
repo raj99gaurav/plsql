@@ -1,0 +1,43 @@
+Syntax
+
+WHILE condition LOOP
+Statement 1;
+Statemen 2;
+…
+Statement 3;
+END LOOP;
+
+Example
+
+DECLARE
+  v_counter  NUMBER :=1;
+  v_result NUMBER ;
+BEGIN
+  WHILE  v_counter <= 10
+LOOP
+  v_result := 9  *v_counter;
+DBMS_OUTPUT.PUT_LINE(‘9’||’ x ‘||v_counter||’ = ‘||v_result);
+  v_counter  := v_counter+1;
+END LOOP;
+DBMS_OUTPUT.PUT_LINE(‘out’);
+END;
+/
+
+Example 2 
+
+DECLARE
+  v_test    BOOLEAN := TRUE;
+  v_counter NUMBER  := 0;
+BEGIN
+  WHILE v_test LOOP
+  v_counter := v_counter+1;
+DBMS_OUTPUT.PUT_LINE( v_counter );
+  IF v_counter = 10 THEN
+  v_test    := FALSE;
+  END IF;
+END LOOP;
+﻿DBMS_OUTPUT.PUT_LINE (‘This Statement is outside the loop and will always execute’);
+END;
+
+With the Boolean expression in loop we have to write the code which will change its value to false and terminate the loop. Failing to do so can make your loop an infinity loop. In the above program the simple IF THEN block inside the loop body will change the value of the Boolean expression v_test and set it on false when counter becomes equal to 10 this till terminate the loop and bring the control over the first statement immediately outside the loop body.
+
