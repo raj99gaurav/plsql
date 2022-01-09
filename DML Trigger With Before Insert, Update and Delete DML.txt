@@ -1,0 +1,83 @@
+Examples
+In order to demonstrate the creation process of DML trigger we need to first create a table.
+
+ CREATE TABLE superheroes (
+  sh_name VARCHAR2 (15)
+);  
+
+
+Before that a simple tip:
+Always remember to set your server output ON otherwise the output message returned from your trigger will not be displayed back to you.
+
+SET SERVEROUTPUT ON;
+
+
+Example 1. Before Insert Trigger
+
+In the first example we will see how to create a trigger over Insert DML. This trigger will print a user defined message every time a user inserts a new row in the superheroes table.
+
+CREATE OR REPLACE TRIGGER bi_Superheroes
+BEFORE INSERT ON superheroes
+FOR EACH ROW
+ENABLE
+DECLARE
+  v_user  VARCHAR2 (15);
+BEGIN
+ SELECT user INTO v_user FROM dual;
+ DBMS_OUTPUT.PUT_LINE('You Just Inserted a Row Mr.'|| v_user); 
+END;
+/
+
+Example 2: Before Update Trigger.
+
+Update Trigger is the one which will execute either before or after Update DML. The creation process of an Update trigger is the same as that of Insert Trigger. You just have to replace Keyword INSERT with UPDATE in the 2nd Line of the above example.
+
+CREATE OR REPLACE TRIGGER bu_Superheroes
+BEFORE UPDATE ON superheroes
+FOR EACH ROW
+ENABLE
+DECLARE
+  v_user  VARCHAR2 (15);
+BEGIN
+ SELECT user INTO v_user FROM dual;
+ DBMS_OUTPUT.PUT_LINE('You Just Updated a Row Mr.'|| v_user); 
+END;
+/
+
+Example 3: Before Delete Trigger
+
+Similar to Insert and Update DML you can write a trigger over Delete DML. This trigger will execute either before or after a user deletes a row from the underlying table.
+
+CREATE OR REPLACE TRIGGER bu_Superheroes
+BEFORE DELETE ON superheroes
+FOR EACH ROW
+ENABLE
+DECLARE
+  v_user  VARCHAR2 (15);
+BEGIN
+ SELECT user INTO v_user FROM dual;
+ DBMS_OUTPUT.PUT_LINE('You Just Deleted a Row Mr.'|| v_user); 
+END;
+/
+
+INSERT, UPDATE, DELETE All in One DML Trigger Using IF-THEN-ELSIF
+
+CREATE OR REPLACE TRIGGER tr_superheroes
+BEFORE INSERT OR DELETE OR UPDATE ON superheroes
+FOR EACH ROW
+ENABLE
+DECLARE
+  v_user  VARCHAR2(15);
+BEGIN
+
+  SELECT 
+    user INTO v_user FROM dual;
+  IF INSERTING THEN
+    DBMS_OUTPUT.PUT_LINE('one line inserted by '||v_user);
+  ELSIF DELETING THEN
+    DBMS_OUTPUT.PUT_LINE('one line Deleted by '||v_user);
+  ELSIF UPDATING THEN
+    DBMS_OUTPUT.PUT_LINE('one line Updated by '||v_user);
+  END IF;
+END;
+/

@@ -1,0 +1,24 @@
+CREATE TABLE superheroes(
+	Sh_name VARCHAR2(30)
+);
+Next we will have to create an identical table to this one which will work as our backup table.
+
+Let’s create this backup table.
+
+CREATE TABLE superheroes_backup AS SELECT * FROM superheroes WHERE 1=2;
+
+CREATE or REPLACE trigger Sh_Backup
+BEFORE INSERT OR DELETE OR UPDATE ON superheroes
+FOR EACH ROW
+ENABLE 
+BEGIN
+  IF INSERTING THEN
+    INSERT INTO superheroes_backup (SH_NAME) VALUES (:NEW.SH_NAME);  
+  ELSIF DELETING THEN
+    DELETE FROM superheroes_backup WHERE SH_NAME =:old.sh_name; 
+  ELSIF UPDATING THEN
+    UPDATE superheroes_backup 
+    SET SH_NAME =:new.sh_name WHERE SH_NAME =:old.sh_name;
+  END IF;
+END;
+/
