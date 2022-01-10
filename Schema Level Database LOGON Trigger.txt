@@ -1,0 +1,46 @@
+Syntax
+CREATE OR REPLACE TRIGGER trigger_name
+BEFORE | AFTER database_event ON database/schema
+BEGIN
+	PL/SQL Code
+END;
+/
+
+Example. Schema Level Event Trigger.
+Suppose user HR is a control freak and wants to monitor its every log on and log off activity. In this case what HR can do is, create event triggers on Log on and log off database event in its own schema.
+
+Step 1: Connect to the database
+Connect to the database using the user/schema in which you want to create the trigger. For the demonstration I will connect using my HR user.
+
+C:/> Conn hr/hr
+Or if you are using SQL Developer then read here on how to connect to the database using the same.
+
+Step 2: Create a Table
+Next you will need a table to store the logon and logoff data.
+
+CREATE TABLE hr_evnt_audit
+  (
+    event_type VARCHAR2(30),
+    logon_date DATE,
+    logon_time VARCHAR2(15),
+    logof_date DATE,
+    logof_time VARCHAR2(15)
+  );
+Step3: Write the trigger Logon Schema Event Trigger.
+Now you are connected to the database using the desired user and also have the table ready to store the data. The only thing which is left is the trigger.
+
+This trigger will fire every time HR user logs on to the database and respective values will be stored into the table which we just created in the step 2.
+
+CREATE OR REPLACE TRIGGER hr_lgon_audit
+AFTER LOGON ON SCHEMA
+BEGIN
+  INSERT INTO hr_evnt_audit VALUES(
+    ora_sysevent,
+    sysdate,
+    TO_CHAR(sysdate, 'hh24:mi:ss'),
+    NULL,
+    NULL
+  );
+  COMMIT;
+END;
+/

@@ -1,0 +1,45 @@
+CREATE TABLE schema_audit
+  (
+    ddl_date       DATE,
+    ddl_user       VARCHAR2(15),
+    object_created VARCHAR2(15),
+    object_name    VARCHAR2(15),
+    ddl_operation  VARCHAR2(15)
+  );
+
+In case of schema/user auditing using DDL trigger creates this table in the same schema which you are auditing and in case of Database auditing using DDL trigger create this table in sys or system schema (sys or system both schemas can be used to perform database auditing).
+
+DDL Trigger for Schema Auditing
+First you need to log on to the database using the schema which you want to audit. For example suppose you want to create the DDL trigger to audit the HR schema then log on to your database using the HR schema.
+
+Then Write, Execute and Compile the below trigger.
+
+CREATE OR REPLACE TRIGGER hr_audit_tr 
+AFTER DDL ON SCHEMA
+BEGIN
+    INSERT INTO schema_audit VALUES (
+sysdate, 
+sys_context('USERENV','CURRENT_USER'), 
+ora_dict_obj_type, 
+ora_dict_obj_name, 
+ora_sysevent);
+END;
+/
+
+DDL Trigger for Database Auditing.
+
+CREATE OR REPLACE TRIGGER db_audit_tr 
+AFTER DDL ON DATABASE
+BEGIN
+    INSERT INTO schema_audit VALUES (
+sysdate, 
+sys_context('USERENV','CURRENT_USER'), 
+ora_dict_obj_type, 
+ora_dict_obj_name, 
+ora_sysevent);
+END;
+/
+
+If you notice the second line of this code carefully then you will find that we have replaced the keyword Schema with the keyword Database which indicates that this trigger will work for the whole database and will perform the underlying work.
+
+To create a trigger on database we require ADMINISTER DATABASE TRIGGER system privilege. All the administrative users such as sys or system already has these privileges by default that is the reason we created this database auditing DDL trigger using these users. Though you can create the same trigger with any user by granting the same privileges to them but that is not advisable because of your database security reasons.
