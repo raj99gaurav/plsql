@@ -1,0 +1,17 @@
+Instead-Of Update Trigger
+
+Instead-of update trigger will override the default behavior of your update operation when you execute the update statement and will let you update the data of the underlying tables over which your view is created.
+
+Example:
+Tables (Trainer and Subject) and View (VW_rgvlogs) used in this example are the same as the ones we created in last one.
+
+CREATE OR REPLACE TRIGGER io_update
+INSTEAD OF UPDATE ON vw_rgvlogs
+FOR EACH ROW
+BEGIN
+  UPDATE trainer SET FULL_NAME = :new.full_name 
+  WHERE FULL_NAME = :old.full_name;
+  UPDATE subject SET subject_NAME = :new.subject_name 
+  WHERE subject_NAME = :old.subject_name;
+END;
+/
