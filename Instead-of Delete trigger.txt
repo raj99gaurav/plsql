@@ -1,0 +1,14 @@
+Instead-of Delete trigger Example.
+
+In this example I will again use the View VW_Rgvlogs which we created earlier and have consistently used in this Instead-of trigger series so far.
+
+Needless to say that executing DELETE DML on this view will return an error because of its non-updatable nature. Thus the only way to perform DELETE DML on this view is by using an Instead of trigger. Let’s quickly create one.
+
+CREATE OR REPLACE TRIGGER io_delete
+INSTEAD OF DELETE ON vw_Rgvlogs
+FOR EACH ROW
+BEGIN
+  DELETE FROM trainer WHERE FULL_NAME = :old.FULL_NAME;
+  DELETE FROM subject WHERE SUBJECT_NAME= :old.SUBJECT_NAME;
+END;
+/

@@ -1,0 +1,62 @@
+Syntax of Instead-Of Trigger
+
+CREATE [OR REPLACE] TRIGGER trigger_name
+INSTEAD OF operation
+ON view_name
+FOR EACH ROW
+BEGIN
+	---Your SQL Code—
+END;
+/
+
+
+Examples
+
+Instead-of Insert Trigger
+
+Instead-of trigger can be best demonstrated using a View joining two or more tables. Thus in this example I will create two simple tables and will then create a view over them. After that I will create an Instead of trigger for Insert operation on this view.
+
+Step1: Create Tables
+
+Table 1- trainer
+
+CREATE TABLE trainer
+  ( 
+    full_name VARCHAR2(20)
+  );
+
+Table 2- Subject
+
+CREATE TABLE subject
+  ( 
+    subject_name VARCHAR2(15)
+  );
+Insert dummy data into the above tables
+
+INSERT INTO trainer VALUES ('Raj Gaurav');
+INSERT INTO subject VALUES ('Oracle');
+
+Step 2: Create View
+
+In this step I will create a view which will show you the combined result of the data from the two tables above.
+
+Suggested Reading: How To Create SQL View in Oracle Database
+
+CREATE VIEW vw_rgvlogs AS
+SELECT full_name, subject_name FROM trainer, subject;
+
+This is a non-updatable view which you can confirm by executing any DML statement over it. Error as a result of DML operation on this view will be your confirmation.
+
+Step 3: Create Trigger
+
+Next I will create an Instead-of Insert trigger over the view vw_rgvlogs that we created in step 2.
+
+CREATE OR REPLACE TRIGGER tr_Io_Insert
+INSTEAD OF INSERT ON vw_rgvlogs 
+FOR EACH ROW
+BEGIN
+  INSERT INTO trainer (full_name) VALUES (:new.full_name);
+  INSERT INTO subject (subject_name) VALUES (:new.subject_name);
+END
+
+On successful execution, this trigger will insert a new row of data into both the underlying tables of the view vw_rgvlogs .You can confirm that by executing an insert DML over the view.

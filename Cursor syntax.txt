@@ -1,0 +1,12 @@
+Basic Programming Structure of the Cursor
+
+Here is the basic programming structure of the cursor in oracle database.
+
+DECLARE
+	CURSOR cursor_name IS select_statement; 
+BEGIN
+	 OPEN cursor_name;
+	 FETCH cursor_name INTO PL/SQL variable [PL/SQL record]; 
+CLOSE cursor_name; 
+END;
+/
