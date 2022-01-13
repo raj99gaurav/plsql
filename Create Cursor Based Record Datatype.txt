@@ -1,0 +1,15 @@
+SET SERVEROUTPUT ON;
+DECLARE
+  CURSOR cur_rgvlogs
+  IS 
+  SELECT first_name, salary FROM employees 
+  WHERE employee_id = 100;
+  --Cursor Based Record Variable Declare
+  var_emp cur_rgvlogs%ROWTYPE;
+BEGIN
+  OPEN ccur_rgvlogs;
+  FETCH cur_rgvlogs INTO var_emp;
+  DBMS_OUTPUT.PUT_LINE (var_emp.first_name);
+  DBMS_OUTPUT.PUT_LINE (var_emp.salary);
+  CLOSE cur_rgvlogs;
+END;

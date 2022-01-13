@@ -1,0 +1,16 @@
+SET SERVEROUTPUT ON;
+DECLARE
+  TYPE rv_dept IS RECORD(
+    f_name  VARCHAR2(20),
+    d_name  departments.department_name%type 
+  );
+  var1 rv_dept;
+BEGIN
+  SELECT first_name , department_name 
+  INTO var1.f_name, var1.d_name
+  FROM employees  join departments
+  Using (department_id) WHERE employee_id = 100;
+  
+  DBMS_OUTPUT.PUT_LINE(var1.f_name||' '||var1.d_name);
+END;
+/

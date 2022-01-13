@@ -1,0 +1,29 @@
+Example 1: Initialize the Record Datatype variable using data from One Column.
+
+SET SERVEROUTPUT ON;
+DECLARE
+  v_emp employees%ROWTYPE;
+BEGIN
+  SELECT first_name INTO v_emp.first_name FROM employees
+  WHERE employee_id = 100;
+  DBMS_OUTPUT.PUT_LINE (v_emp.first_name);
+END;
+/
+ 
+
+Example 2: Initialize the Record Datatype variable using data from Multiple Columns.
+
+SET SERVEROUTPUT ON;
+DECLARE
+  v_emp employees%ROWTYPE;
+BEGIN
+  SELECT first_name,
+    hire_date
+  INTO v_emp.first_name,
+    v_emp.hire_date
+  FROM employees
+  WHERE employee_id = 100;
+  DBMS_OUTPUT.PUT_LINE (v_emp.first_name);
+  DBMS_OUTPUT.PUT_LINE (v_emp.hire_date);
+END;
+/

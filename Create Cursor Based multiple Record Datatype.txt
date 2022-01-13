@@ -1,0 +1,28 @@
+Cursor-Based Record Datatype Variable in Oracle Database
+
+SET SERVEROUTPUT ON;
+DECLARE
+  CURSOR cur_rgvlogs IS
+  SELECT first_name, salary FROM employees
+  WHERE employee_id > 200; 
+  var_emp   cur_rgvlogs%ROWTYPE;
+BEGIN
+  OPEN cur_rgvlogs;
+  LOOP
+    FETCH cur_rgvlogs INTO var_emp;
+    EXIT WHEN cur_rgvlogs%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE (var_emp.first_name||' '||var_emp.salary);
+  END LOOP;
+  CLOSE cur_rgvlogs;
+END;
+
+Here is the code done using Cursor For-Loop which is equivalent to the above code. As you can see it is much less complex with few Line-of-Codes (LOCs).
+
+SET SERVEROUTPUT ON;
+BEGIN
+  FOR var_emp IN (SELECT first_name, salary FROM employees
+ WHERE employee_id >200)
+  LOOP
+    DBMS_OUTPUT.PUT_LINE(var_emp.first_name||' '||var_emp.salary);
+  END LOOP;
+END; 
