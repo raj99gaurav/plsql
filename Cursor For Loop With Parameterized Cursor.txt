@@ -1,0 +1,12 @@
+Example1. Cursor For Loop With Parameterized Cursor
+
+DECLARE
+  CURSOR cur_rgvlogs( var_e_id NUMBER) IS 
+  SELECT first_name, employee_id FROM employees
+  WHERE employee_id > var_e_id;
+BEGIN
+  FOR l_idx IN cur_rgvlogs(200)
+  LOOP
+    DBMS_OUTPUT.PUT_LINE(l_idx.employee_id||' '||l_idx.first_name);
+  END LOOP;
+END;

@@ -1,0 +1,12 @@
+Example: Table based record type variable initialization with SELECT asterisk (*) statement.
+
+SET SERVEROUTPUT ON;
+DECLARE
+  v_emp employees%ROWTYPE;
+BEGIN
+  SELECT * INTO v_emp FROM employees
+  WHERE employee_id = 100;
+    	  DBMS_OUTPUT.PUT_LINE (v_emp.first_name ||' '||v_emp.salary);
+  DBMS_OUTPUT.PUT_LINE(v_emp.hire_date);
+END;
+/

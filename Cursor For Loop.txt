@@ -1,0 +1,37 @@
+Syntax of Cursor For Loop.
+
+FOR loop_index IN cursor_name 
+	LOOP
+		Statements…
+	END LOOP;
+
+Example 1: Cursor For Loop With Simple Explicit Cursor
+
+SET SERVEROUTPUT ON;
+
+DECLARE
+ CURSOR cur_Rgvlogs IS 
+ SELECT first_name, last_name FROM employees
+ WHERE employee_id >200;
+BEGIN
+  FOR L_IDX IN cur_Rgvlogs
+  LOOP
+    DBMS_OUTPUT.PUT_LINE(L_IDX.first_name||' '||L_IDX.last_name);
+  END LOOP;
+END;
+/
+
+
+Example 2: Cursor For Loop With Inline Cursor.
+
+You can pass the cursor definition directly into the Cursor For Loop. The code for that is:
+
+SET SERVEROUTPUT ON;
+BEGIN
+  FOR  L_IDX  IN (SELECT first_name, last_name FROM employees
+  WHERE employee_id >200)
+  LOOP
+     DBMS_OUTPUT.PUT_LINE (L_IDX.first_name||' '||L_IDX.last_name);
+  END LOOP;
+END;
+/
