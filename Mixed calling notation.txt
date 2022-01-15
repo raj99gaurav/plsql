@@ -1,0 +1,10 @@
+Example of Mixed calling notation for calling PL/SQL subroutines
+
+Here is the anonymous block in which we are calling the same function add_num ( ) which we coded when doing named calling notation.
+
+DECLARE
+  var_result  NUMBER;
+BEGIN
+  var_result := add_num(var_1 => 10, 30 ,var_3 =>19);
+  DBMS_OUTPUT.put_line('Result ->' || var_result);
+END;

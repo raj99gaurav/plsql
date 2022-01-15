@@ -1,0 +1,28 @@
+Package Header
+
+CREATE OR REPLACE PACKAGE pkg_rgvlogs IS
+
+  FUNCTION prnt_strng RETURN VARCHAR2;
+  PROCEDURE proc_superhero(f_name VARCHAR2, l_name VARCHAR2);
+
+END pkg_rgvlogs;
+
+By taking a look at the above code we can clearly say that the package is going to hold two package elements which are – a PL/SQL function prnt_strng and a stored procedure proc_superhero.
+
+Package Body
+
+--Package Body
+CREATE OR REPLACE PACKAGE BODY pkg_rgvlogs IS
+  --Function Implimentation
+  FUNCTION prnt_strng RETURN VARCHAR2 IS
+    BEGIN
+      RETURN 'rgvlogs';
+    END prnt_strng;
+  
+  --Procedure Implimentation
+   PROCEDURE proc_superhero(f_name VARCHAR2, l_name VARCHAR2) IS
+     BEGIN
+      INSERT INTO new_superheroes (f_name, l_name) VALUES(f_name, l_name);
+     END;
+  
+END pkg_rgvlogs;
