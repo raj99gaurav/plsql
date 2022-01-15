@@ -1,0 +1,32 @@
+CREATE OR REPLACE PROCEDURE pr_rgvlogs IS
+  var_name VARCHAR2 (30):= 'Raj';
+  var_web VARCHAR2 (30) := 'Gaurav';
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Namastey I am '||var_name||' and'||var_web);
+END pr_rgvlogs;
+/
+
+How to Call PL/SQL Stored Procedures in Oracle Database
+After successfully creating and compiling the stored procedure, next you have to call this subroutine. You can do so in multiple ways such as:
+
+Call a PL/SQL stored procedure using EXECUTE statement.
+Call a PL/SQL stored procedure using an Anonymous PL/SQL block.
+Call a PL/SQL stored procedure using a Named PL/SQL block.
+**If in case your subroutine such as stored procedure consists of server side  PL/SQL statement then do make sure to set the “Server Output On” to see the result.
+
+Call a PL/SQL stored procedure using EXECUTE statement
+The best way to quickly check the output of your stored procedure or test the working of your PL/SQL procedure is to call it using EXECUTE keyword. In order to call a stored procedure using EXECUTE keyword you simply have to write the same keyword followed by the name of the procedure.
+
+EXECUTE pr_rgvlogs;
+Or you can also write the first 4 letters of the EXECUTE keyword followed by the procedure name.
+
+EXEC pr_rgvlogs; 
+Both the statements are the same and will do the same work.
+
+Call a PL/SQL stored procedure using an Anonymous PL/SQL block
+The second way of calling a procedure is to place a procedure call statement inside the execution section of an anonymous PL/SQL block.
+
+BEGIN
+  pr_rgvlogs;
+END;
+/
