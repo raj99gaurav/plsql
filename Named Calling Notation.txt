@@ -1,0 +1,24 @@
+Example of Named Calling Notation for calling a PL/SQL Subroutines
+
+CREATE OR REPLACE FUNCTION add_num
+(var_1 NUMBER, var_2 NUMBER DEFAULT 0, var_3 NUMBER ) RETURN NUMBER 
+IS
+BEGIN
+  RETURN var_1 + var_2 + var_3;
+END;
+/
+
+here above function has 3 parameters. Among these 3 parameters 2 are mandatory and 1 is optional with a default value 0.
+
+You can call this function using positional notation. But it has a restriction which you have to fulfill and that is that you have to supply values to all the formal parameters in the same order in which they are declared and the datatype of formal and actual parameters must match.
+
+So if you want to omit the optional parameter and want to use their default value or you just forgot the order of the parameter in which they were declared! Then it will be slightly difficult for you to call the above subroutine using positional notation. In such a scenario you can take advantage of Named Calling Notation. This calling notation will provide you the desired flexibility in calling your subroutines.
+
+PL/SQL Function call using Named Calling Notation in Oracle Database
+
+DECLARE
+  var_result  NUMBER;
+BEGIN
+  var_result := add_num(var_3 => 5, var_1 =>2);
+  DBMS_OUTPUT.put_line('Result ->' || var_result);
+END;

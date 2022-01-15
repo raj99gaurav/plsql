@@ -1,0 +1,17 @@
+Example: Positional Notation for calling PL/SQL Subroutines.
+
+CREATE OR REPLACE PROCEDURE emp_sal
+(dep_id NUMBER, sal_raise NUMBER) 
+IS
+BEGIN
+  	UPDATE employees 
+SET salary = salary * sal_raise 
+WHERE department_id = dep_id;
+  
+DBMS_OUTPUT.PUT_LINE ('salary updated successfully');
+END;
+ /
+
+Stored Procedure call using positional notation in Oracle Database
+
+EXECUTE emp_sal(40,2);
