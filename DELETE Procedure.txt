@@ -1,0 +1,53 @@
+Example 1: Simple procedure call without argument.
+
+DECLARE
+    TYPE my_nested_table IS
+        TABLE OF NUMBER;
+    var_nt my_nested_table := my_nested_table(2,4,6,8,10,12,14,16,18,20);
+BEGIN
+
+    --Range Delete
+    var_nt.DELETE;
+    FOR i IN 1..var_nt.LAST LOOP
+        IF var_nt.EXISTS(i) THEN
+            DBMS_OUTPUT.PUT_LINE('Value at Index ['||i||'] is '|| var_nt(i));
+        END IF;
+    END LOOP;
+END;
+/
+
+Example 2: Procedure call with a single parameter
+
+DECLARE
+    TYPE my_nested_table IS
+        TABLE OF NUMBER;
+    var_nt my_nested_table := my_nested_table(2,4,6,8,10,12,14,16,18,20);
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('After Deleted');
+    --Delete Specific Index
+    var_nt.DELETE(5);
+    IF var_nt.EXISTS(5) THEN
+            DBMS_OUTPUT.PUT_LINE('Value at Index [5] is '|| var_nt(5));
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Data is Deleted');
+    END IF;
+END;
+/
+
+Example 3: Procedure call with two parameters.
+
+DECLARE
+    TYPE my_nested_table IS
+        TABLE OF NUMBER;
+    var_nt my_nested_table := my_nested_table(2,4,6,8,10,12,14,16,18,20);
+BEGIN
+
+    --Delete Range
+    var_nt.DELETE(2,6);
+    FOR i IN 1..var_nt.LAST LOOP
+        IF var_nt.EXISTS(i) THEN
+            DBMS_OUTPUT.PUT_LINE('Value at Index ['||i||'] is '|| var_nt(i));
+        END IF;
+    END LOOP;
+END;
+/

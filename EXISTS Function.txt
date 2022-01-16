@@ -1,0 +1,18 @@
+Example of Collection Method EXISTS ( ).
+
+This simple example will show you how you can use this function in your application.
+
+SET SERVEROUTPUT ON;
+DECLARE
+        --Declare a local Nested Table
+    	TYPE my_nested_table IS TABLE OF VARCHAR2 (20);
+ --Declare collection variable and initialize the collection.	
+col_var_1   my_nested_table := my_nested_table('Super Man','Iron Man','Bat Man');
+BEGIN
+    IF col_var_1.EXISTS (1) THEN
+        DBMS_OUTPUT.PUT_LINE ('Hey we found '||col_var_1 (1));
+    ELSE
+        DBMS_OUTPUT.PUT_LINE ('Sorry, no data at this INDEX');
+    END IF;
+END;
+/  
