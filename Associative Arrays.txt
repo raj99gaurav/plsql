@@ -1,0 +1,18 @@
+SET SERVEROUTPUT ON;
+DECLARE
+    TYPE books IS TABLE OF NUMBER
+        INDEX BY VARCHAR2(20);
+    isbn Books;
+BEGIN
+    	-- How to insert data into the associative array 
+    	isbn('Oracle Database') := 1234;
+    	isbn('MySQL') := 9876;
+    	DBMS_OUTPUT.PUT_LINE('Value Before Updation '||isbn('MySQL'));
+
+    	-- How to update data of associative array.
+    	isbn('MySQL') := 1010;
+    
+-- how to retrieve data using key from associative array.  
+    	DBMS_OUTPUT.PUT_LINE('Value After Updation '||isbn('MySQL'));
+END;
+/

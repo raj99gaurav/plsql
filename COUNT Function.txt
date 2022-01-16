@@ -1,0 +1,31 @@
+Examples of Collection Method COUNT ( )
+
+Example 1: Compute total number of elements stored in a Nested table.
+
+You can use COUNT ( ) function to compute total number of elements stored into a collection such as Nested table.
+
+SET SERVEROUTPUT ON;
+DECLARE
+    TYPE my_nested_table IS TABLE OF number;
+    var_nt my_nested_table := my_nested_table (9,18,27,36,45,54,63,72,81,90);
+BEGIN
+    DBMS_OUTPUT.PUT_LINE ('The Size of the Nested Table is ' ||var_nt.count);
+END;
+/
+Go ahead; copy and paste the above code in your IDE and see the result.
+
+Example 2. COUNT ( ) function with IF Condition
+
+You can use COUNT ( ) function to control the flow of the program using a condition. So let’s write a very simple program which will demonstrate how to use collection Method COUNT ( ) with IF Condition.
+
+SET SERVEROUTPUT ON;
+DECLARE
+    TYPE my_nested_table IS TABLE OF number;
+    var_nt my_nested_table := my_nested_table (9,18,27,36,45,54,63,72,81,90);
+BEGIN
+    IF var_nt.count >= 10 THEN
+        DBMS_OUTPUT.PUT_LINE (‘you have already inserted 10 elements in your Nested table.');
+        DBMS_OUTPUT.PUT_LINE ('Are you sure you want to insert more?');
+    END IF;
+END;
+/
