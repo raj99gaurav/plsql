@@ -1,0 +1,42 @@
+Step 1: Define a Varray inside PL/SQL block
+
+You can define a varray only inside the declaration section of a PL/SQL block.
+
+ 	SET SERVEROUTPUT ON;
+	DECLARE
+	    TYPE inBlock_vry IS VARRAY (5) OF NUMBER;
+
+Step 2: Initialize the Varray
+
+Initialization of a varray can easily be done using the collection variable. To initialize the VARRAY we will first define a collection variable and then use it for initializing.
+
+vry_obj inBlock_vry  :=  inBlock_vry();
+
+Step 3: How to insert data into the VARRAY
+
+Inserting data into the varray is very similar to inserting data into the array of other programming language. You can insert data either directly into each cell of the varray using the index number or you can use LOOP for populating the varray.
+
+How to insert data into the VARRAY using index of the cell
+
+As we know that the structure of a cell PL/SQL collection consists of a cell with a subscript called index. We can use this index for inserting the data into the varray.
+
+	BEGIN
+		vry_obj.EXTEND(5); 
+		vry_obj(1):= 10*2;
+		DBMS_OUTPUT.PUT_LINE(vry_obj(1));    
+	END;
+	/
+
+How to insert data into a VARRAY using PL/SQL Loop
+
+The most common way of dealing with data of a collection is by using Loops. Most programmers are used to using Loops to cycle through the data of any kind of array because this is easy, less time consuming and have less line of codes which keep your code cleaner and makes it easy to read. In short it is easy and efficient.
+
+	BEGIN
+	FOR i IN 1 .. vry_obj.LIMIT
+	LOOP
+ 		vry_obj.EXTEND;
+		vry_obj (i):= 10*i;    
+		DBMS_OUTPUT.PUT_LINE (vry_obj (i));    
+	END LOOP;
+	END;
+	/

@@ -1,0 +1,52 @@
+How to Create VARRAY as Database Object?
+
+	SET SERVEROUTPUT ON;
+	CREATE OR REPLACE TYPE dbObj_vry IS VARRAY (5) OF NUMBER;
+	/
+
+Example 1. How to define a column of a table using VARRAY?
+
+CREATE TABLE calendar(
+    day_name        VARCHAR2(25),
+    day_date        dbObj_vry
+);
+/
+
+How to insert data into the VARRAY?
+
+INSERT INTO calendar ( day_name, day_date ) 
+VALUES ( 'Sunday', dbObj_vry (7, 14, 21, 28) );    
+
+How to retrieve the data from the VARRAY?
+
+Data can be retrieved using SELECT statement. Any correctly written SELECT statement will do the work. For example
+
+SELECT * FROM calendar;
+
+In case you want to display the data stored into the column, which is holding data of VARRAY type, in a relational format then you can take the help of TABLE expression. For example
+
+SELECT 
+    tab1.day_name, 
+    vry.column_value AS "Date"
+FROM calendar tab1, TABLE (tab1.day_date) vry;
+
+How to update the data of VARRAY type column?
+Updating the values of VARRAY type column is pretty simple. Below example will show you how to update the values of day_date columns.
+
+UPDATE calendar 
+SET day_date = dbObj_vry(10,14,21,28) 
+WHERE day_name = 'Sunday';
+Example 2. How to use VARRAY with PL/SQL block?
+In the above example we learnt, how to use the VARRAY which is created as Database object to define the column of a table. Now we will see how to use the same varray inside a PL/SQL block.
+
+DECLARE
+    vry_obj dbObj_vry    := dbObj_vry();
+BEGIN
+    FOR i IN 1..vry_obj.LIMIT
+    LOOP
+        vry_obj.EXTEND; 
+        vry_obj(i):= 10*i;
+        DBMS_OUTPUT.PUT_LINE(vry_obj(i));    
+    END LOOP;
+END;
+/
