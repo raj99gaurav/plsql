@@ -1,0 +1,11 @@
+Example: How to use collection function FIRST and LAST with collection?
+
+SET SERVEROUTPUT ON;
+DECLARE
+    TYPE nt_tab IS TABLE OF NUMBER;
+    col_var nt_tab := nt_tab(10, 20, 30, 40, 50);
+BEGIN
+    DBMS_OUTPUT.PUT_LINE ('First Index of the Nested table is ' || col_var.FIRST);
+    DBMS_OUTPUT.PUT_LINE ('Last Index of the Nested table is ' || col_var.LAST);
+END;
+/

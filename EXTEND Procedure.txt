@@ -1,0 +1,53 @@
+1. PL/SQL Collection Procedure EXTEND with No Argument.
+SET SERVEROUTPUT ON;
+DECLARE
+    TYPE my_nestedTable IS TABLE OF number;
+    nt_obj  my_nestedTable := my_nestedTable();
+BEGIN
+    nt_obj.EXTEND;
+    nt_obj(1) := 10;
+    DBMS_OUTPUT.PUT_LINE ('Data at index 1 is '||nt_obj(1));
+END;
+/
+
+2. Collection Procedure EXTEND with One Argument.
+SET SERVEROUTPUT ON;
+DECLARE
+    TYPE my_nestedTable IS TABLE OF number;
+    nt_obj  my_nestedTable := my_nestedTable();
+BEGIN
+    nt_obj.EXTEND(3);
+    nt_obj(1) := 10;
+    nt_obj(2) := 20;
+    nt_obj(3) := 30;
+    DBMS_OUTPUT.PUT_LINE ('Data at index 1 is '||nt_obj(1));
+    DBMS_OUTPUT.PUT_LINE ('Data at index 2 is '||nt_obj(2)); 
+    DBMS_OUTPUT.PUT_LINE ('Data at index 3 is '||nt_obj(3));
+END;
+/
+
+3. PL/SQL Collection Procedure EXTEND with Two Arguments.
+SET SERVEROUTPUT ON;
+DECLARE
+    TYPE my_nestedTable IS TABLE OF number;
+    nt_obj  my_nestedTable := my_nestedTable();
+BEGIN
+    nt_obj.EXTEND;
+    nt_obj(1) := 28;
+    DBMS_OUTPUT.PUT_LINE ('Data at index 1 is '||nt_obj(1));
+    nt_obj.EXTEND(5,1);
+    DBMS_OUTPUT.PUT_LINE ('Data at index 4 is '||nt_obj(4));
+END;
+/
+
+4. Collection Procedure EXTEND (No Argument) with VARRAY
+SET SERVEROUTPUT ON;
+DECLARE
+    TYPE my_Varray IS VARRAY (5) OF NUMBER;
+    vry_obj my_Varray := my_Varray();
+BEGIN
+    vry_obj.EXTEND;
+    vry_obj(1) := 10;
+    DBMS_OUTPUT.PUT_LINE('Data at index 1 is '||vry_obj(1));
+END;
+/
