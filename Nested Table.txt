@@ -1,0 +1,28 @@
+Example: How to Create Nested Table inside a PL/SQL Block?
+
+The following example is only for demonstrating how to create nested table, there is nothing fancy about it.
+
+SET SERVEROUTPUT ON;
+DECLARE
+   TYPE my_nested_table   IS TABLE OF number;
+    var_nt  my_nested_table :=  my_nested_table (9,18,27,36,45,54,63,72,81,90);
+BEGIN
+   DBMS_OUTPUT.PUT_LINE ('Value Stored at index 1 in NT is ' ||var_nt (1)); 
+   DBMS_OUTPUT.PUT_LINE ('Value Stored at index 2 in NT is ' ||var_nt (2));
+   DBMS_OUTPUT.PUT_LINE ('Value Stored at index 3 in NT is ' ||var_nt (3));
+END;
+ /
+
+Instead of accessing data one by one manually using index we can use loops and cycle through each element of the collection nested table.
+
+ SET SERVEROUTPUT ON;
+ DECLARE
+   TYPE my_nested_table   IS TABLE OF number;
+   var_nt  my_nested_table :=  my_nested_table (9,18,27,36,45,54,63,72,81,90);
+ BEGIN
+   FOR i IN 1..var_nt.COUNT
+   LOOP
+     DBMS_OUTPUT.PUT_LINE ('Value stored at index '||i||'is '||var_nt(i));
+   END LOOP;
+ END;
+ /
