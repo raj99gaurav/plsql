@@ -1,0 +1,40 @@
+To create an Oracle Object we use our old and trusty ‘Create Type’ statement.
+
+CREATE OR REPLACE TYPE object_type AS OBJECT (
+  obj_id  NUMBER,
+  obj_name  VARCHAR2(10)
+);
+/
+
+The above statement will create an oracle object with the name ‘object type’ with two attributes obj_id and obj_name on successful execution. This datatype then can be used to create a nested table.
+
+CREATE OR REPLACE TYPE My_NT IS TABLE OF object_type;
+/
+
+Now that we have created the nested table using user-define datatype it’s time for putting it to some work.
+
+CREATE TABLE Base_Table(
+  tab_id  NUMBER,
+  tab_ele My_NT
+)NESTED TABLE tab_ele STORE AS stor_tab_1;
+/
+
+How to insert data into the nested table?
+Yes, I agree that inserting data into a table which has a column of nested table type can be tricky but somehow we have to find the way of doing it. As a table without data is of no use to us. Right? Let’s see how we can do that.
+
+ INSERT INTO base_table (tab_id, tab_ele) VALUES
+ (801,  -- value for 1st colum 
+   My_NT (object_type (1,'Superman') -- values for 2nd column )
+ );
+
+How to update values of the nested table?
+UPDATE base_table SET tab_ele = My_NT(object_type(1,'SpiderMan')) WHERE tab_id = 801;
+
+How to retrieve data from the nested table?
+You can simply execute the Select statement on your table to get the data.
+
+Select tab_id, tab_ele FROM base_table;
+
+SELECT * FROM TABLE(
+  SELECT tab_ele FROM Base_Table WHERE tab_id = 801
+)
