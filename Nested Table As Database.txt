@@ -1,0 +1,49 @@
+SET SERVEROUTPUT ON;
+CREATE OR REPLACE TYPE my_nested_table IS TABLE OF VARCHAR2 (10);
+/
+
+ How to use nested table?
+
+The collection type which we created above can be used to specify the type of a column of a table.
+
+CREATE TABLE my_subject(
+	  sub_id    	NUMBER,
+	  sub_name  	VARCHAR2 (20),
+	  sub_schedule_day    my_nested_table
+) NESTED TABLE sub_schedule_day STORE AS nested_tab_space;
+/
+
+Insert rows into the table
+INSERT INTO my_subject (sub_id, sub_name, sub_schedule_day)
+VALUES (101, 'Maths', my_nested_table('mon', 'Fri'));
+
+Retrieve data from the table
+A simple SELECT DML statement can be used to retrieve the data from the table.
+
+SELECT * FROM my_subject;
+This simple DML statement will show you all the data stored into the table that we created above. To see the data from a specific row you can use WHERE clause with SELECT DML
+
+SELECT * FROM my_subject WHERE sub_id = 101;
+If you want then you can take help of sub-query to just check the data from the column which you defined as nested table type.
+
+SELECT * FROM TABLE (
+  SELECT sub_schedule_day FROM my_subject WHERE sub_id = 101
+);
+
+Update data of the table
+You can either update all the values of the column which you define as nested table or you can update a single instance of the same.
+
+Update all the values of the nested table type column.
+UPDATE my_subject SET sub_schedule_day = my_nested_table('Tue', 'Sat') 
+WHERE sub_id = 101;
+/
+The above query will update all the values of sub_schedule_day from ‘Mon’, ‘Fri’ to ‘Tue’ and ‘Sat’. Now suppose you want to update only a single instance of this column by replacing ‘Sat’ with ‘Thu’. How will you do that?
+
+Update single instance of nested table
+In order to update a single instance of nested table type column you can once again take the help of TABLE expression.
+
+UPDATE TABLE
+  (SELECT sub_schedule_day FROM my_subject 
+  WHERE sub_id = 101) A
+SET A.COLUMN_VALUE   = 'Thur' 
+WHERE A.COLUMN_VALUE = 'Sat';
