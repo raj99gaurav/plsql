@@ -1,0 +1,15 @@
+User-Define Exception Using Raise_Application_Error Procedure
+
+SET SERVEROUTPUT ON;
+ACCEPT var_age NUMBER PROMPT 'What is yor age';
+DECLARE
+  age   NUMBER := &var_age;
+BEGIN
+  IF age < 18 THEN
+    RAISE_APPLICATION_ERROR (-20008, 'you should be 18 or above for the DRINK!');
+  END IF; 
+  DBMS_OUTPUT.PUT_LINE ('Sure, What would you like to have?'); 
+  EXCEPTION WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE (SQLERRM);
+END;
+/ 
