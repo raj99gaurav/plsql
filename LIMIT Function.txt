@@ -1,0 +1,14 @@
+SET SERVEROUTPUT ON;
+DECLARE
+    --Create VARRAY of 5 element
+    TYPE inblock_vry IS
+        VARRAY ( 5 ) OF NUMBER;
+    vry_obj   inblock_vry := inblock_vry ();
+BEGIN
+    --Insert into VARRAY
+    	vry_obj.extend;
+    	vry_obj(1) := 10 * 2; 
+dbms_output.put_line('Total Number of Index ' || vry_obj.limit);
+dbms_output.put_line('Total Number of Index which are occupied ' || vry_obj.count);
+END;
+/
