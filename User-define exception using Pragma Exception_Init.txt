@@ -1,0 +1,23 @@
+Example: Declare User-define exception using Pragma Exception_Init
+
+DECLARE
+  ex_age    EXCEPTION;
+  age       NUMBER    := 17;
+  PRAGMA EXCEPTION_INIT(ex_age, -20008);
+BEGIN
+  IF age<18 THEN
+    RAISE_APPLICATION_ERROR(-20008, 'You should be 18 or above for the drinks!');
+  END IF;
+  
+  DBMS_OUTPUT.PUT_LINE('Sure! What would you like to have?');
+  
+  EXCEPTION WHEN ex_age THEN
+    DBMS_OUTPUT.PUT_LINE(SQLERRM);   
+END;
+/
+
+Why use PRAGMA EXCEPTION_INIT with RAISE_APPLICATION_ERROR?
+
+Though it is not mandatory to use PRAGMA EXCEPTION_INIT with RAISE_APPLICATION_ERROR procedure however it is more of a personal preference than a programming rule. If you want to print an error message with an error number like the Oracle’s standard way of showing an error then it is the best practice to use PRAGMA EXCEPTION_INIT with RAISE_APPLICATION_ERROR procedure.
+
+But if you just want to print the error message & not the error number then you can use PRAGMAEXCEPTION_INIT with RAISE statement.  
