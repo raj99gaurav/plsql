@@ -1,0 +1,26 @@
+Example of Collection Method Prior.
+In this method we will learn how to use collection method Prior with Nested Table.
+
+SET SERVEROUTPUT ON;
+DECLARE
+    TYPE my_nested_table IS
+        TABLE OF NUMBER;
+    var_nt   my_nested_table := my_nested_table(9,18,27,36,45,54,63,72,81,90);
+BEGIN
+        dbms_output.put_line('Index prior to index 3 is '||var_nt.PRIOR(3)); 
+        dbms_output.put_line('Value before 3rd Index is '||var_nt(var_nt.PRIOR(3))); 
+END;
+/
+
+Example of Collection Method Next.
+You can use PL/SQL Collection method Next same as you used Prior function in the above code. Collection method NEXT returns the value from the next higher index. Here is the example
+
+DECLARE
+    TYPE my_nested_table IS
+        TABLE OF NUMBER;
+    var_nt   my_nested_table := my_nested_table(9,18,27,36,45,54,63,72,81,90);
+BEGIN
+        dbms_output.put_line('Next Higher Index to index 3 is '||var_nt.NEXT(3)); 
+        dbms_output.put_line('Value after 3rd Index is '||var_nt(var_nt.NEXT(3))); 
+END;
+/
