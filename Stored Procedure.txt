@@ -1,0 +1,8 @@
+Stored Procedure for Department Wide Salary Raise
+
+CREATE OR REPLACE PROCEDURE emp_sal( dep_id NUMBER, sal_raise NUMBER) 
+IS
+BEGIN
+  UPDATE emp SET salary = salary * sal_raise WHERE department_id = dep_id;
+END;
+/
