@@ -1,0 +1,14 @@
+Execute Immediate with INTO clause.
+
+SET SERVEROUTPUT ON;
+DECLARE
+    sql_qry     VARCHAR2 (150);
+    emp_tot     NUMBER(3);
+BEGIN
+    
+    sql_qry:= ‘SELECT count (*) FROM employees';
+    EXECUTE IMMEDIATE sql_qry INTO emp_tot;
+    DBMS_OUTPUT.PUT_LINE ('Total employees are: '||emp_tot);
+
+END;
+/
