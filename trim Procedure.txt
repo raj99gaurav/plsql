@@ -1,0 +1,66 @@
+1. PL/SQL Collection Procedure TRIM without parameter.
+SET SERVEROUTPUT ON;
+DECLARE
+    TYPE my_nestedTable IS TABLE OF number;
+    nt_obj  my_nestedTable := my_nestedTable(1,2,3,4,5);
+BEGIN
+    nt_obj.TRIM;
+    DBMS_OUTPUT.PUT_LINE ('After TRIM procedure');
+    FOR i IN 1..nt_obj.COUNT
+    LOOP
+        DBMS_OUTPUT.PUT_LINE (nt_obj (i));
+    END LOOP;
+END;
+/ 
+2. Collection Procedure TRIM with parameter.
+SET SERVEROUTPUT ON;
+DECLARE
+    TYPE my_nestedTable IS TABLE OF number;
+    nt_obj  my_nestedTable := my_nestedTable(1,2,3,4,5);
+BEGIN
+    nt_obj.TRIM (3);
+    DBMS_OUTPUT.PUT_LINE ('After TRIM procedure');
+    FOR i IN 1..nt_obj.COUNT
+    LOOP
+        DBMS_OUTPUT.PUT_LINE (nt_obj(i));
+    END LOOP;
+END;
+/
+3. PL/SQL Collection Procedure TRIM SUBSCRIPT_BEYOND_COUNT exception.
+SET SERVEROUTPUT ON;
+DECLARE
+    TYPE my_nestedTable IS TABLE OF number;
+    nt_obj  my_nestedTable := my_nestedTable(1,2,3,4,5);
+BEGIN
+    nt_obj.TRIM(6);
+    DBMS_OUTPUT.PUT_LINE ('After TRIM procedure');
+    FOR i IN 1..nt_obj.COUNT
+    LOOP
+        DBMS_OUTPUT.PUT_LINE (nt_obj(i));
+    END LOOP;
+END;
+/
+SUBSCRIPT_BEYOND_COUNT exception occurs when we pass an argument greater than the total number of elements of the collection. In the above example the collection which we use is Nested table with the name ‘my_nestedTable’ which has 5 numeric elements stored into it. However in the procedure call we instructed the compiler to TRIM 6 elements which is definitely impossible thus in this case compiler raises SUBSCRIPT_BEYOND_COUNT exception.
+
+4. Collection Procedure TRIM with VARRAY.
+SET SERVEROUTPUT ON;
+DECLARE
+ TYPE inBlock_vry IS VARRAY (5) OF NUMBER;
+ vry_obj inBlock_vry := inBlock_vry(1, 2, 3, 4, 5);
+BEGIN
+    --TRIM without parameter
+    vry_obj.TRIM;
+    DBMS_OUTPUT.PUT_LINE ('After TRIM procedure');
+    FOR i IN 1..vry_obj.COUNT
+    LOOP
+        DBMS_OUTPUT.PUT_LINE (vry_obj(i));
+    END LOOP;
+    --TRIM with Parameter
+    vry_obj.TRIM (2);
+    DBMS_OUTPUT.PUT_LINE ('After TRIM procedure');
+    FOR i IN 1..vry_obj.COUNT
+    LOOP
+        DBMS_OUTPUT.PUT_LINE (vry_obj(i));
+    END LOOP;
+END;
+/
