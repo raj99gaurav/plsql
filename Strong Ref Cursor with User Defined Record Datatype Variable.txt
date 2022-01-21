@@ -1,0 +1,22 @@
+Example: PL/SQL Strong Ref Cursor with User Defined Record Datatype Variable.
+
+For instance, we want to create a strong ref cursor with the SELECT statement. Which returns only the salary of the employee whose employee id is 100.
+
+SET SERVEROUTPUT ON;
+DECLARE
+	--Create User-Defined Record Datatype
+    TYPE my_rec IS RECORD (
+        emp_sal employees.salary%TYPE
+        );
+	--Declare Strong Ref Cursor
+    TYPE RefCur IS REF CURSOR RETURN my_rec;
+    cur_var REFCUR;
+	--Another anchored datatype variable for holding data
+    at_var  employees.salary%TYPE;
+BEGIN
+   OPEN cur_var FOR SELECT salary FROM employees WHERE employee_id = 100;
+    FETCH cur_var INTO at_var;
+    CLOSE cur_var;
+    DBMS_OUTPUT.PUT_LINE ('Salary of the employee is '||at_var);
+END;
+/
