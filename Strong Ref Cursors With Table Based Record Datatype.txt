@@ -1,0 +1,18 @@
+Example of Strong Ref Cursors With Table Based Record Datatype
+
+Let’s write an example. Here we will create a Strong Ref Cursor with Table Based Record Datatype.
+
+ SET SERVEROUTPUT ON
+ DECLARE
+    	/*Create Ref Pointer Type*/
+	TYPE	my_RefCur	IS REF CURSOR RETURN 	employees%ROWTYPE;
+	/*Create Cursor Variable*/
+	cur_var my_RefCur;
+	rec_var     employees%ROWTYPE;
+ BEGIN
+	OPEN cur_var FOR SELECT * FROM employees WHERE employee_id = 100;
+	FETCH cur_var INTO rec_var;
+	CLOSE cur_var;
+	DBMS_OUTPUT.PUT_LINE ('Employee '||rec_var.first_name||' has salary '||rec_var.salary||'.');
+END;
+/
