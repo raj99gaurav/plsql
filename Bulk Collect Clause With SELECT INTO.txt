@@ -1,0 +1,19 @@
+SET SERVEROUTPUT ON;
+DECLARE
+    TYPE nt_fName   IS TABLE OF VARCHAR2 (20);
+    TYPE nt_lName   IS TABLE OF VARCHAR2 (20);
+    
+    fname   nt_fName;
+    lName   nt_lName;
+BEGIN
+    SELECT first_name, last_name 
+        BULK COLLECT INTO fName, lName 
+    FROM employees; 
+        
+        --Print values from the collection--
+    FOR idx IN 1..fName.COUNT
+    LOOP
+        DBMS_OUTPUT.PUT_LINE (idx||' - '||fName (idx) ||' '||lName (idx));
+    END LOOP;
+END;
+/
