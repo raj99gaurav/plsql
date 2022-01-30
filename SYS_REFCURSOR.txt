@@ -1,0 +1,17 @@
+Example: How to create PL/SQL SYS_REFCURSOR in Oracle Database?
+
+SET SERVEROUTPUT ON;
+DECLARE
+    --Declare cursor variable of SYS_REFCURSOR type
+    cur_var SYS_REFCURSOR;
+    
+    --Declare variables for holding data
+    f_name  employees.first_name%TYPE;
+    emp_sal employees.salary%TYPE;
+BEGIN
+OPEN cur_var FOR SELECT first_name, Salary FROM employees WHERE employee_id = 100;
+    FETCH cur_var INTO f_name, emp_sal;
+    CLOSE cur_var;
+    DBMS_OUTPUT.PUT_LINE(f_name ||' '||emp_sal);
+END;
+/
