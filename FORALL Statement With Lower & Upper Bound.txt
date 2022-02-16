@@ -1,0 +1,29 @@
+Let’s do the example of PL/SQL FORALL statement with Lower and Upper bound.
+
+SET SERVEROUTPUT ON;
+CREATE TABLE tut_77 (
+    Mul_tab    NUMBER(5)
+);
+
+That is going to be our table which will hold the data. Next we will write the PL/SQL block.
+
+DECLARE
+	-- Declare the collection
+    TYPE My_Array IS TABLE OF NUMBER INDEX BY PLS_INTEGER;
+    col_var My_Array;
+	--Declare a variable for holding the total number of records of the table
+    tot_rec NUMBER;
+BEGIN
+    --Populate the collection
+    FOR i IN 1..10 LOOP
+        col_var (i) := 9*i;
+    END LOOP;
+    -- Write the FORALL statement.
+    FORALL idx IN 1..10
+        INSERT INTO tut_77 (mul_tab)
+        VALUES (col_var (idx));
+    --Get the total number of records from the table     
+    SELECT count (*) INTO tot_rec FROM tut_77;
+    DBMS_OUTPUT.PUT_LINE ('Total records inserted are '||tot_rec);
+END;
+/
